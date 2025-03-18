@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Demo</title>
+</head>
+<body>
+    <script>
+        // Ide írhatod a JavaScript kódod
+        console.log("Hello, World!");
+        let counter = 0;
+        let number = 0;
+        function Random()
+        {
+            return numberGuess = Math.floor((Math.random() * 1000000) + 1);
+        }
+        number = Random();
+        console.log("testing: " + number);
+
+        for (let i =1; i <=20;i++)
+        {
+            let guess = parseInt(window.prompt("Tippelj egy számra", ""));
+            if( isNaN(guess) == true)
+            {
+                alert("Ez nem egy szám!")
+                continue;
+            }
+            let times = 20 -i;
+            if (guess == number)
+            {
+                alert("Siker");
+                break;
+            }else
+            {
+                alert("Sikertelen, " + times + " próbálkozás maradt!");
+                if (guess < number)
+                {
+                    alert(i + ". tipp nem talált: A megoldás nagyobb " + guess);
+                }else{
+                    alert(i + ". tipp nem talált: A megoldás kisebb " + guess);
+                }
+            }
+            if(i==2){
+                alert("elfogytak a tippjeid, a szám " + number + " volt");
+                break;
+            }
+
+        }
+
+    </script>
+</body>
+</html>
