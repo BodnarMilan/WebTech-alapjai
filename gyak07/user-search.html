@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Felhasználók Keresése</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div id="nav-placeholder"></div>
+        </nav>
+    </header>
+    <main>
+        <h1>Felhasználók Keresése</h1>
+        <input type="text" id="search-input" placeholder="Keresett felhasználónév...">
+        <button onclick="searchUsers()">Keresés</button>
+        <div id="results"></div>
+    </main>
+    <script>
+        fetch("nav.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("nav-placeholder").innerHTML = data;
+            });
+
+        function searchUsers() {
+            const query = document.getElementById('search-input').value;
+            if (!query) {
+                alert('Kérlek, add meg a keresett felhasználónevet!');
+                return;
+            }
+
+            fetch(`https://api.github.com/search/users?q=${query}`)
+                .then(response => response.json())
+                .then(data => {
+                    const resultsDiv = document.getElementById('results');
+                    resultsDiv.innerHTML = '';
+                    data.items.forEach(user => {
+                        const userDiv = document.createElement('div');
+                        userDiv.classList.add('user');
+                        userDiv.innerHTML = `
+                            <img src="${user.avatar_url}" alt="${user.login}" width="50">
+                            <span>${user.login}</span>
+                        `;
+                        resultsDiv.appendChild(userDiv);
+                    });
+                })
+                .catch(error => {
+                    console.error('Hiba történt a keresés során:', error);
+                });
+        }
+    </script>
+</body>
+</html>
