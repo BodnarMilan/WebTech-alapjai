@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bevásárlólista</title>
+    <style>
+        .crossed-out {
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="item-input" placeholder="Tárgy hozzáadása">
+    <button id="add-btn">Hozzáadás</button>
+
+    <div id="container">
+        <p>Bevásárlólista:</p>
+    </div>
+
+    <ul id="item-list"></ul>
+
+    <script>
+        let button = document.getElementById("add-btn");
+        let input = document.getElementById("item-input");
+        let itemList = document.getElementById("item-list");
+
+        button.addEventListener("click", () => {
+            let inputValue = input.value.trim();
+
+            //input is only added if not "", else: nothing is added
+            if (inputValue !== "") {
+                let newItem = document.createElement("li");
+                newItem.textContent = inputValue;
+
+                //make added items crossed out (toggleable)
+                newItem.addEventListener("click", () => {
+                    newItem.classList.toggle("crossed-out");
+                });
+
+                itemList.appendChild(newItem);
+
+                input.value = "";
+            }
+        });
+    </script>
+</body>
+</html>
